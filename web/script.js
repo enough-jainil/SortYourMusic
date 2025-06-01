@@ -973,6 +973,55 @@ function toggleMobileMenu() {
   menu.classList.toggle("hidden");
 }
 
+function logout() {
+  // Clear all stored authentication data
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("token_expires_at");
+  localStorage.removeItem("code_verifier");
+
+  // Reset global variables
+  accessToken = null;
+  curUserID = null;
+  curPlaylist = null;
+
+  // Hide user info and show login button
+  $("#user-info").addClass("hidden");
+  $("#user-info-mobile").addClass("hidden");
+  $("#get-spotify-btn").removeClass("hidden");
+  $("#get-spotify-btn-mobile").removeClass("hidden");
+
+  // Reset UI to initial state
+  $(".worker").hide();
+  $("#intro").show();
+  $("#go").show();
+
+  // Clear any existing playlist data
+  $("#playlist-list tbody").empty();
+  $("#song-table tbody").empty();
+  if (songTable) {
+    songTable.clear();
+  }
+
+  // Clear info messages
+  info("Logged out successfully");
+
+  // Reset page title
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+function showUserInfo(user) {
+  // Update both desktop and mobile user displays
+  $("#who").text(user.id);
+  $("#who-mobile").text(user.id);
+
+  // Show user info and hide login buttons
+  $("#user-info").removeClass("hidden").addClass("flex");
+  $("#user-info-mobile").removeClass("hidden").addClass("block");
+  $("#get-spotify-btn").addClass("hidden");
+  $("#get-spotify-btn-mobile").addClass("hidden");
+}
+
 // ================================
 // MAIN INITIALIZATION
 // ================================
@@ -996,7 +1045,7 @@ $(document).ready(function () {
         fetchCurrentUserProfile(function (user) {
           if (user) {
             curUserID = user.id;
-            $("#who").text(user.id);
+            showUserInfo(user);
             loadPlaylists(user.id);
           } else {
             error("Trouble getting the user profile");
@@ -1026,7 +1075,7 @@ $(document).ready(function () {
     fetchCurrentUserProfile(function (user) {
       if (user) {
         curUserID = user.id;
-        $("#who").text(user.id);
+        showUserInfo(user);
         loadPlaylists(user.id);
       } else {
         error("Trouble getting the user profile");
@@ -1043,7 +1092,7 @@ $(document).ready(function () {
       fetchCurrentUserProfile(function (user) {
         if (user) {
           curUserID = user.id;
-          $("#who").text(user.id);
+          showUserInfo(user);
           loadPlaylists(user.id);
         } else {
           error("Stored token is invalid. Please re-authorize.");
@@ -1108,5 +1157,18 @@ $(document).ready(function () {
     e.stopPropagation();
     info("saving new playlist...");
     savePlaylist(curPlaylist, true);
+  });
+
+  // Logout button event handlers
+  $("#logout-btn").on("click", function (e) {
+    e.preventDefault();
+    logout();
+  });
+
+  $("#logout-btn-mobile").on("click", function (e) {
+    e.preventDefault();
+    logout();
+    // Close mobile menu after logout
+    $("#mobile-menu").addClass("hidden");
   });
 });

@@ -38,7 +38,7 @@
                     }
                 }
             }
-        };
+        }
     </script>
 
     <!-- Font Awesome Icons -->
@@ -84,26 +84,7 @@
                         class="text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
                         About
                     </a>
-
-                    <!-- User Info (shown when logged in) -->
-                    <div id="user-info" class="hidden items-center space-x-4">
-                        <div class="flex items-center space-x-2 text-gray-600">
-                            <div
-                                class="w-8 h-8 bg-gradient-to-br from-spotify-500 to-spotify-600 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user text-white text-sm"></i>
-                            </div>
-                            <span id="who" class="font-medium"></span>
-                        </div>
-                        <button id="logout-btn" class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 
-                                       text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 
-                                       shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium text-sm">
-                            <i class="fas fa-sign-out-alt mr-2"></i>
-                            Logout
-                        </button>
-                    </div>
-
-                    <!-- Get Spotify button (shown when not logged in) -->
-                    <a href="http://www.spotify.com" target="_blank" id="get-spotify-btn" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                    <a href="http://www.spotify.com" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
                               text-white rounded-lg hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
                               shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium">
                         <i class="fab fa-spotify mr-2"></i>
@@ -132,26 +113,7 @@
                     class="block text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
                     About
                 </a>
-
-                <!-- Mobile User Info (shown when logged in) -->
-                <div id="user-info-mobile" class="hidden border-t border-gray-200 pt-3 space-y-3">
-                    <div class="flex items-center space-x-3 px-2">
-                        <div
-                            class="w-8 h-8 bg-gradient-to-br from-spotify-500 to-spotify-600 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user text-white text-sm"></i>
-                        </div>
-                        <span id="who-mobile" class="font-medium text-gray-700"></span>
-                    </div>
-                    <button id="logout-btn-mobile" class="block w-full text-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 
-                                   text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 
-                                   shadow-lg font-medium">
-                        <i class="fas fa-sign-out-alt mr-2"></i>
-                        Logout
-                    </button>
-                </div>
-
-                <!-- Get Spotify button (shown when not logged in) -->
-                <a href="http://www.spotify.com" target="_blank" id="get-spotify-btn-mobile" class="block w-full text-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                <a href="http://www.spotify.com" target="_blank" class="block w-full text-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
                           text-white rounded-lg hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
                           shadow-lg font-medium">
                     <i class="fab fa-spotify mr-2"></i>

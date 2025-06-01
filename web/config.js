@@ -1,5 +1,5 @@
 "use strict";
 
-var SPOTIFY_CLIENT_ID = "31469b011d4941bf8dd4ac9cf8495bac";
+var SPOTIFY_CLIENT_ID = "9b361fd2847049b589077149efae3d8d";
 var SPOTIFY_REDIRECT_URI = "http://localhost:8000/";
 // var SPOTIFY_REDIRECT_URI = 'http://sortyourmusic.playlistmachinery.com/';

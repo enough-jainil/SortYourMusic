@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -8,1070 +9,2064 @@
     <meta name="author" content="">
     <link type="text/css" href="styles.css?v1" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css"/>
-    <link href="dist/sp-bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <title>Sort Your Music</title>
-    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css" />
+    <!-- Tailwind CSS for modern, beautiful design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        spotify: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#1db954',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'pulse-glow': 'pulseGlow 2s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Updated Font Awesome to 6.0.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous">
+    <title>Sort Your Music - Modern Playlist Organizer</title>
+
+    <!-- Custom CSS for animations and modern effects -->
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(29, 185, 84, 0.6);
+            }
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .spotify-gradient {
+            background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+        }
+
+        .music-wave {
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+            background-size: 300% 300%;
+            animation: musicWave 6s ease infinite;
+        }
+
+        @keyframes musicWave {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #1ed760, #1db954);
+        }
+    </style>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-  <body >
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
-            <span class="navbar-logo"></span>
-            <span class="navbar-title">Sort Your Music</span>
-          </a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <a href="http://www.spotify.com" class="btn btn-primary navbar-btn navbar-right">Get
-          Spotify</a>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div id='intro'>
-      <div id='main' class="top worker jumbotron jumbotron-hero container-fluid">
-          <div  id="jumbo-dialog">
-            <h1 id='ttitle' >Sort Your Music</h1>
-            <p id='ttext'>
-                Sort your Spotify playlists by any of 
-                a wide range of musical attributes such as tempo, loudness, 
-                valence, energy, danceability, popularity and more. Now with
-                <b>Filters</b>!
-            </p>
-            <p>  Login with your Spotify account to get started</p>
-            <p><a class="btn btn-primary btn-lg" id='go' role="button">Login with Spotify</a></p>
-          </div>
-      </div>
-
-        <div class="container worker ">
-          <div class="row features">
-             <div class="col-md-offset-2 col-md-8">
-                    <h2 class="text-center">Get your playlists in order</h2>
-                    <p>
-                    With <b> Sort Your Playlists </b> you can easily order the songs
-                    in any of your playlists be a wide range of parameters. Just
-                    follow these steps:
-                    </p>
-                    <ol>
-                        <li> <b> Login </b> with your Spotify credentials 
-                        <li> <b> Pick </b> your playlist
-                        <li> <b> Sort </b> the playlist by clicking on the column headings in
-                        the playlist table
-                        <li>  <b> Save </b> the sorted playlist to Spotify
-                    </ol>
-
-                    <h2 class="text-center">Tap into the power of Spotify's song attributes</h2>
-                    <p>
-                    <b> Sort Your Music </b> lets you sort your playlist
-                    based on a number of Spotify's song attributes including:
-                    </p>
-
-                    <ol>
-                        <li> <b> Beats Per Minute (BPM)</b> - The tempo of the
-                        song.
-                        <li> <b> Energy</b> - The energy of a song - the higher
-                        the value, the more energtic.
-                        song
-                        <li> <b> Danceability</b> - The higher the value, the
-                        easier it is to dance to this song.
-                        <li> <b> Loudness </b> - The higher the value, the
-                        louder the song.
-                        <li> <b> Valence </b> - The higher the value, the
-                        more positive mood for the song.
-                        <li> <b> Length </b> - The duration of the song.
-                        <li> <b> Acoustic </b> - The higher the value the more
-                        acoustic the song is.
-                        <li> <b> Popularity </b> - The higher the value the more
-                        popular the song is.
-                        <li> <b> A.Sep </b> - maximizes the artist separation in the set
-                        <li> <b> Rnd </b> - A randon number. Sort by this column to shuffle your playlist.
-                    </ol>
-
-                    <h2 class="text-center">FAQ</h2>
-                    <p>
-                        Here are some answers to questions about <b> Sort Your
-                        Music </b>
-                    </p>
-                    <ol>
-                        <li> <b> How was this built? </b> This was created using
-                        the <a
-                        href="http://developer.spotify.com">Spotify</a> API.
-
-                        <li> <b> Where can I learn more about the Spotify song
-                        attributes?</b> See <a
-                        href="https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis">
-                        Acoustic Attributes Overview </a>
-                        <li> <b> Can you add more attributes to the app?  </b>
-                        Yes, but it is a tradeoff between display space,
-                        complexity and utility. Let me know which attributes
-                        you'd like to see.
-                        <li> <b> Any more features planned?</b> - Yes, I'd like
-                        to add a few more features such as:
-                            <ul>
-                                <li> Duplicate track removal
-                                <li> Manual reordering, addition, and deletion.
-                            </ul>
-                        If you have any ideas for new feature, let me know.
-                        <li> <b> Is the source available</b> - Yes, you can find
-                        it on <a href="https://github.com/plamere/SortYourMusic">github</a>
-                        <li> <b> Does Sort Your Music overwrite my playlist when
-                            I save?</b> - 
-                            Only if you chose the 'Overwrite playlist option' otherwise
-                            it creates a copy of the playlist. The new
-                            playlist is called 'Old playlist name sorted by
-                            increasing X', where X is what you sorted the
-                            playlist on. 
-                    </ol>
-              </div> 
-          </div>
-        </div>
-
-      <div class="top jumbotron container-fluid">
-          <p id='info' class="text-center"></p>
-
-          <div class="worker" id='playlists'> 
-                <h2 class="prompt" > Pick a playlist: </h2>
-                <img class='spinner' width='100' alt='spinner' src='images/ajaxSpinner.gif'>
-
-                <div class="panel panel-default">
-                    <table id='playlist-list' class="table">
-                        <thead>
-                            <tr>
-                            <th> Cover </th>
-                            <th>Name</th>
-                            <th>Track Count</th>
-                            <th>Owner</th>
-                            </tr>
-                        </thead>
-                        <tbody> </tbody>
-                    </table>
+<body>
+    <!-- Modern Tailwind Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-spotify-500 to-spotify-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-music text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1
+                            class="text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                            Sort Your Music
+                        </h1>
+                        <p class="text-xs text-gray-500 hidden sm:block">Organize your Spotify playlists</p>
+                    </div>
                 </div>
-          </div>
 
-          <div class="worker" id='single-playlist'> 
-                <h2> <a id='playlist-title'></a> </h2>
-                <img class='spinner2' width='100' alt='spinner' src='images/ajaxSpinner.gif'>
-                <div id='single-playlist-contents'>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#features"
+                        class="text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
+                        Features
+                    </a>
+                    <a href="#about"
+                        class="text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
+                        About
+                    </a>
+                    <a href="http://www.spotify.com" target="_blank" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                              text-white rounded-lg hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
+                              shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium">
+                        <i class="fab fa-spotify mr-2"></i>
+                        Get Spotify
+                    </a>
+                </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-body">
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-600 hover:text-gray-900 transition-colors duration-200 p-2"
+                        onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                            <div class='btn-group pull-right'>
-                              <button id='save' type='button' class='btn btn-primary btn-sm has-spinner'><i class="fa fa-spinner fa-spin"></i> Save New Playlist</button>
-                              <button id='saveDropdown' type='button' class='btn btn-primary btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                <span class='caret'></span>
-                                <span class='sr-only'>Toggle Dropdown</span>
-                              </button>
-                              <ul class='dropdown-menu'>
-                                <li><a id='dropSave' href='#'>Save New Playlist</a></li>
-                                <li><a id='dropOverwrite' href='#'>Overwrite Playlist</a></li>
-                              </ul>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200/20">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#features"
+                    class="block text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
+                    Features
+                </a>
+                <a href="#about"
+                    class="block text-gray-600 hover:text-spotify-600 transition-colors duration-200 font-medium">
+                    About
+                </a>
+                <a href="http://www.spotify.com" target="_blank" class="block w-full text-center px-4 py-2 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                          text-white rounded-lg hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
+                          shadow-lg font-medium">
+                    <i class="fab fa-spotify mr-2"></i>
+                    Get Spotify
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+
+    <!-- Modern Hero Section -->
+    <div id='intro' class="pt-16">
+        <div id='main' class="min-h-screen worker music-wave flex items-center justify-center relative overflow-hidden">
+            <!-- Background decorative elements -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                <div
+                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl">
+                </div>
+            </div>
+
+            <div id="jumbo-dialog" class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <!-- Music note floating animation -->
+                <div class="absolute -top-20 left-10 text-white/20 text-4xl animate-bounce">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="absolute -top-16 right-16 text-white/20 text-3xl animate-pulse">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="absolute top-10 right-4 text-white/20 text-2xl animate-bounce delay-150">
+                    <i class="fas fa-compact-disc"></i>
+                </div>
+
+                <h1 id='ttitle' class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-8 animate-fade-in">
+                    <span class="block">Sort Your</span>
+                    <span class="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
+                        Music
+                    </span>
+                </h1>
+
+                <p id='ttext'
+                    class="text-xl sm:text-2xl text-white/90 mb-8 leading-relaxed animate-fade-in animation-delay-300 max-w-3xl mx-auto">
+                    Transform your <span class="text-yellow-300 font-semibold">Spotify playlists</span> with our
+                    intelligent sorting system.
+                    Organize by <span class="text-pink-300 font-semibold">tempo</span>,
+                    <span class="text-blue-300 font-semibold">energy</span>,
+                    <span class="text-green-300 font-semibold">danceability</span>, and more!
+                </p>
+
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12 animate-fade-in animation-delay-600">
+                    <div class="flex items-center text-white/80">
+                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                        <span>Advanced Filtering</span>
+                    </div>
+                    <div class="flex items-center text-white/80">
+                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                        <span>Smart Sorting</span>
+                    </div>
+                    <div class="flex items-center text-white/80">
+                        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                        <span>Secure & Fast</span>
+                    </div>
+                </div>
+
+                <p class="text-white/70 mb-8 text-lg animate-fade-in animation-delay-900">
+                    Connect your Spotify account to get started
+                </p>
+
+                <div class="animate-fade-in animation-delay-1200">
+                    <button id='go' class="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                                   text-white text-lg font-bold rounded-2xl hover:from-spotify-600 hover:to-spotify-700 
+                                   transition-all duration-300 shadow-2xl hover:shadow-spotify-500/25 transform hover:-translate-y-1 
+                                   focus:outline-none focus:ring-4 focus:ring-spotify-500/50">
+                        <i
+                            class="fab fa-spotify text-2xl mr-3 group-hover:scale-110 transition-transform duration-200"></i>
+                        <span>Login with Spotify</span>
+                        <div
+                            class="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                        <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="worker bg-gradient-to-br from-gray-50 to-gray-100 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+                        Get your playlists in
+                        <span class="bg-gradient-to-r from-spotify-500 to-spotify-600 bg-clip-text text-transparent">
+                            perfect order
+                        </span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Transform your music experience with our intelligent sorting system.
+                        Organize your Spotify playlists with professional precision in just a few clicks.
+                    </p>
+                </div>
+
+                <!-- How it Works -->
+                <div class="grid md:grid-cols-4 gap-8 mb-20">
+                    <div class="text-center group">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                            <i class="fas fa-sign-in-alt text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Connect</h3>
+                        <p class="text-gray-600">Securely login with your Spotify credentials</p>
+                    </div>
+
+                    <div class="text-center group">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                            <i class="fas fa-list-music text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Select</h3>
+                        <p class="text-gray-600">Choose any playlist from your library</p>
+                    </div>
+
+                    <div class="text-center group">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                            <i class="fas fa-sort-amount-down text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Sort</h3>
+                        <p class="text-gray-600">Click column headers to sort by any attribute</p>
+                    </div>
+
+                    <div class="text-center group">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-spotify-500 to-spotify-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                            <i class="fas fa-save text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Save</h3>
+                        <p class="text-gray-600">Save the organized playlist back to Spotify</p>
+                    </div>
+                </div>
+
+                <!-- Sorting Attributes -->
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                        Powerful
+                        <span class="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                            Sorting Options
+                        </span>
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Leverage Spotify's advanced audio analysis to sort your music by these attributes
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-tachometer-alt text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">BPM</h3>
+                        <p class="text-gray-600 text-sm">Sort by beats per minute to create perfect workout or chill
+                            playlists</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-bolt text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Energy</h3>
+                        <p class="text-gray-600 text-sm">Organize from mellow to high-energy tracks</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-fire text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Danceability</h3>
+                        <p class="text-gray-600 text-sm">Perfect for creating party or dance playlists</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-volume-up text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Loudness</h3>
+                        <p class="text-gray-600 text-sm">Sort by volume levels for consistent listening</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-smile text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Valence</h3>
+                        <p class="text-gray-600 text-sm">Organize by mood from sad to happy tracks</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-clock text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Duration</h3>
+                        <p class="text-gray-600 text-sm">Sort by song length for time-specific playlists</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-guitar text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Acoustic</h3>
+                        <p class="text-gray-600 text-sm">Filter by acoustic vs electronic sounds</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-star text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Popularity</h3>
+                        <p class="text-gray-600 text-sm">Sort by trending and popular tracks</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Artist Sep</h3>
+                        <p class="text-gray-600 text-sm">Distribute artists evenly throughout playlist</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift group">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                            <i class="fas fa-random text-white"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">Random</h3>
+                        <p class="text-gray-600 text-sm">Shuffle your playlist in a new random order</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern FAQ Section -->
+        <div id="about" class="worker bg-gradient-to-br from-white to-gray-50 py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+                        Frequently Asked
+                        <span class="bg-gradient-to-r from-spotify-500 to-spotify-600 bg-clip-text text-transparent">
+                            Questions
+                        </span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Everything you need to know about Sort Your Music
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-code text-white"></i>
                             </div>
-
-                            <a class="btn btn-primary btn-sm pull-left" id='pick'
-                                role="button">back</a>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">How was this built?</h3>
+                                <p class="text-gray-600">
+                                    This was created using the <a href="http://developer.spotify.com"
+                                        class="text-spotify-600 hover:text-spotify-700 font-semibold transition-colors duration-200">Spotify
+                                        API</a>
+                                    with modern web technologies including secure PKCE authentication.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <!-- <div class="panel-heading">Filter</div> -->
-                        <div class="panel-body">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <label for="min-bpm">BPM Filter Minimum:</label>
-                                    <input id="min-bpm" type="number" class="form-control" placeholder="0">
-                                </div>
-                                <div class="form-group">
-                                    <label for="max-bpm">Maximum:</label>
-                                    <input id="max-bpm" type="number" class="form-control" placeholder="1000">
-                                </div>
-                                <div class="form-group">
-                                    <label for="include-double">Include doubled BPM</label>
-                                    <input id="include-double" type="checkbox" checked="checked">
-                                </div>
-                                 <!--
-                                 <button id="shuffle-button" class="pull-right btn btn-primary btn-sm">Shuffle</button> 
-                                 -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-music text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Where can I learn more about Spotify
+                                    song attributes?</h3>
+                                <p class="text-gray-600">
+                                    See the <a
+                                        href="https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis"
+                                        class="text-spotify-600 hover:text-spotify-700 font-semibold transition-colors duration-200">
+                                        Acoustic Attributes Overview
+                                    </a> for detailed information about energy, danceability, valence, and more.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <table id='song-table' class="display stripe compact cell-border">  
-                        <thead>
-                            <tr>
-                                <th title="original track order"> # </th>
-                                <th title="the title of the track"> Title </th>
-                                <th title="the primary artist of the track"> Artist </th>
-                                <th title="date of release"> Release</th>
-                                <th title="the tempo, in beats-per-minute of the track"> BPM </th>
-                                <th title="the overall energy of the track"> Energy </th>
-                                <th title="the danceability of the track"> Dance </th>
-                                <th title="the loudness in dBs of the track"> Loud </th>
-                                <th title="how positive is the track"> Valence </th>
-                                <th title="the duration of the track"> Length </th>
-                                <th title="how acoustic is the track"> Acoustic </th>
-                                <th title="how popular is the track"> Pop. </th>
-                                <th title="maximizes artist separation"> A.Sep </th>
-                                <th title="a random value, suitable for generating a random shuffle"> Rnd </th>
-                            </tr>
-                        </thead>
-                        <tbody> </tbody>
-                        <tfoot> </tfoot>
-                    </table>
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-plus text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Can you add more attributes to the app?
+                                </h3>
+                                <p class="text-gray-600">
+                                    Yes! It's a balance between display space, complexity, and utility.
+                                    Let me know which attributes you'd like to see added to make your sorting even
+                                    better.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-rocket text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Any more features planned?</h3>
+                                <p class="text-gray-600 mb-3">Yes! We're working on exciting new features:</p>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        Duplicate track removal
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        Manual reordering, addition, and deletion
+                                    </li>
+                                </ul>
+                                <p class="text-gray-600 mt-3">
+                                    If you have ideas for new features, let us know!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-github text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Is the source code available?</h3>
+                                <p class="text-gray-600">
+                                    Yes! You can find the complete source code on
+                                    <a href="https://github.com/plamere/SortYourMusic"
+                                        class="text-spotify-600 hover:text-spotify-700 font-semibold transition-colors duration-200">
+                                        <i class="fab fa-github mr-1"></i>GitHub
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Does Sort Your Music overwrite my
+                                    playlist when I save?</h3>
+                                <p class="text-gray-600">
+                                    Only if you choose the <span class="font-semibold text-gray-900">'Overwrite
+                                        playlist'</span> option.
+                                    Otherwise, it creates a copy of your playlist. The new playlist is called
+                                    <span class="font-semibold text-gray-900">'[Original name] ordered by [sort
+                                        method]'</span>,
+                                    so your original stays safe!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-          </div>
+            </div>
+        </div>
+
+        <div class="top jumbotron container-fluid">
+            <p id='info' class="text-center"></p>
+
+            <!-- Modern Playlist Selection -->
+            <div class="worker min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-20" id='playlists'>
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4 prompt">
+                            Choose your
+                            <span
+                                class="bg-gradient-to-r from-spotify-500 to-spotify-600 bg-clip-text text-transparent">
+                                playlist
+                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-600">Select any playlist from your Spotify library to start
+                            organizing
+                        </p>
+                    </div>
+
+                    <!-- Modern Loading Spinner -->
+                    <div class="spinner text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-16 h-16">
+                            <div
+                                class="animate-spin rounded-full h-16 w-16 border-4 border-spotify-200 border-t-spotify-500">
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mt-4">Loading your playlists...</p>
+                    </div>
+
+                    <!-- Modern Playlist Grid -->
+                    <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                        <div class="overflow-x-auto custom-scrollbar">
+                            <table id='playlist-list' class="w-full">
+                                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+                                    <tr>
+                                        <th
+                                            class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                                            <i class="fas fa-image mr-2"></i>Cover
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                                            <i class="fas fa-music mr-2"></i>Playlist Name
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                                            <i class="fas fa-list-ol mr-2"></i>Tracks
+                                        </th>
+                                        <th
+                                            class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                                            <i class="fas fa-user mr-2"></i>Owner
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <!-- Playlist items will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modern Single Playlist View -->
+            <div class="worker min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-20" id='single-playlist'>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Playlist Header -->
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                            <a id='playlist-title'
+                                class="bg-gradient-to-r from-spotify-500 to-spotify-600 bg-clip-text text-transparent hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200"></a>
+                        </h2>
+                        <p class="text-lg text-gray-600">Organize your tracks with intelligent sorting</p>
+                    </div>
+
+                    <!-- Modern Loading Spinner -->
+                    <div class="spinner2 text-center mb-8">
+                        <div class="inline-flex flex-col items-center">
+                            <div class="relative">
+                                <div
+                                    class="animate-spin rounded-full h-16 w-16 border-4 border-spotify-200 border-t-spotify-500">
+                                </div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i class="fas fa-music text-spotify-500 text-xl animate-pulse"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mt-4 font-medium">Analyzing your playlist...</p>
+                        </div>
+                    </div>
+
+                    <div id='single-playlist-contents'>
+                        <!-- Modern Controls Section -->
+                        <div class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+                            <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+                                <!-- Back Button -->
+                                <button id='pick' class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-gray-500 to-gray-600 
+                                               text-white rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-200 
+                                               shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium">
+                                    <i class="fas fa-arrow-left mr-2"></i>
+                                    Back to Playlists
+                                </button>
+
+                                <!-- Save Controls with Proper Dropdown -->
+                                <div class="relative">
+                                    <!-- Main Save Button -->
+                                    <button id='save'
+                                        class="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                                               text-white rounded-l-xl hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
+                                               shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium has-spinner">
+                                        <i class="fas fa-spinner fa-spin mr-2 hidden spinner-icon"></i>
+                                        <i class="fas fa-save mr-2 save-icon"></i>
+                                        Save New Playlist
+                                    </button>
+
+                                    <!-- Dropdown Toggle Button -->
+                                    <button id='saveDropdown'
+                                        class="inline-flex items-center px-3 py-3 bg-gradient-to-r from-spotify-500 to-spotify-600 
+                                               text-white rounded-r-xl hover:from-spotify-600 hover:to-spotify-700 transition-all duration-200 
+                                               shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-l border-spotify-400">
+                                        <i class="fas fa-chevron-down text-sm"></i>
+                                    </button>
+
+                                    <!-- Dropdown Menu -->
+                                    <div class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 hidden z-50"
+                                        id="save-dropdown">
+                                        <div class="py-2">
+                                            <a id='dropSave' href='#'
+                                                class="flex items-center px-4 py-3 text-gray-700 hover:bg-spotify-50 hover:text-spotify-600 transition-colors duration-200 border-b border-gray-100">
+                                                <div
+                                                    class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i class="fas fa-plus text-white text-sm"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-semibold">Save New Playlist</div>
+                                                    <div class="text-xs text-gray-500">Creates a copy with sorted order
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a id='dropOverwrite' href='#'
+                                                class="flex items-center px-4 py-3 text-gray-700 hover:bg-spotify-50 hover:text-spotify-600 transition-colors duration-200">
+                                                <div
+                                                    class="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i class="fas fa-edit text-white text-sm"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-semibold">Overwrite Playlist</div>
+                                                    <div class="text-xs text-gray-500">Replaces current playlist order
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modern Filter Section -->
+                        <div class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+                            <div class="flex items-center mb-6">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                                    <i class="fas fa-filter text-white"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900">Smart Filters</h3>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="space-y-2">
+                                    <label for="min-bpm" class="block text-sm font-semibold text-gray-700">
+                                        <i class="fas fa-tachometer-alt mr-2 text-red-500"></i>
+                                        Minimum BPM
+                                    </label>
+                                    <input id="min-bpm" type="number" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
+                                                  focus:ring-4 focus:ring-spotify-500/20 focus:border-spotify-500 
+                                                  transition-all duration-200 font-medium" placeholder="0">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="max-bpm" class="block text-sm font-semibold text-gray-700">
+                                        <i class="fas fa-tachometer-alt mr-2 text-red-500"></i>
+                                        Maximum BPM
+                                    </label>
+                                    <input id="max-bpm" type="number" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
+                                                  focus:ring-4 focus:ring-spotify-500/20 focus:border-spotify-500 
+                                                  transition-all duration-200 font-medium" placeholder="1000">
+                                </div>
+
+                                <div class="flex items-center space-x-3">
+                                    <input id="include-double" type="checkbox" checked="checked" class="w-5 h-5 text-spotify-500 bg-gray-50 border-gray-300 rounded 
+                                                  focus:ring-spotify-500 focus:ring-2">
+                                    <label for="include-double" class="text-sm font-semibold text-gray-700">
+                                        <i class="fas fa-music mr-2 text-spotify-500"></i>
+                                        Include doubled BPM
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modern Song Table -->
+                        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                            <div class="overflow-x-auto custom-scrollbar">
+                                <table id='song-table' class="w-full">
+                                    <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+                                        <tr>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="original track order">
+                                                <i class="fas fa-hashtag mr-2"></i>#
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the title of the track">
+                                                <i class="fas fa-music mr-2 text-spotify-500"></i>Title
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the primary artist of the track">
+                                                <i class="fas fa-user mr-2 text-blue-500"></i>Artist
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="date of release">
+                                                <i class="fas fa-calendar mr-2 text-purple-500"></i>Release
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the tempo, in beats-per-minute of the track">
+                                                <i class="fas fa-tachometer-alt mr-2 text-red-500"></i>BPM
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the overall energy of the track">
+                                                <i class="fas fa-bolt mr-2 text-orange-500"></i>Energy
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the danceability of the track">
+                                                <i class="fas fa-fire mr-2 text-pink-500"></i>Dance
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the loudness in dBs of the track">
+                                                <i class="fas fa-volume-up mr-2 text-blue-500"></i>Loud
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="how positive is the track">
+                                                <i class="fas fa-smile mr-2 text-green-500"></i>Valence
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="the duration of the track">
+                                                <i class="fas fa-clock mr-2 text-purple-500"></i>Length
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="how acoustic is the track">
+                                                <i class="fas fa-guitar mr-2 text-yellow-500"></i>Acoustic
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="how popular is the track">
+                                                <i class="fas fa-star mr-2 text-indigo-500"></i>Pop.
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="maximizes artist separation">
+                                                <i class="fas fa-users mr-2 text-teal-500"></i>A.Sep
+                                            </th>
+                                            <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                                                title="a random value, suitable for generating a random shuffle">
+                                                <i class="fas fa-random mr-2 text-gray-500"></i>Rnd
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <!-- Song rows will be dynamically added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div id="footer">
-      <div class="container text-center">
-            <p class="text-muted">
-                Powered by <a href="http://spotify.com">Spotify</a>
-                Created by <a href="http://twitter.com/plamere">@plamere</a>
-                with contributions by <a href="http://twitter.com/sonneveld">@sonneveld</a>.
-            </p>
-      </div>
-    </div>
-    <script src="lib/jquery-1.11.1.min.js"></script>
- 
+    <!-- Modern Footer -->
+    <footer id="footer" class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <!-- Brand Section -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-spotify-500 to-spotify-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-music text-white text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Sort Your Music</h3>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        The ultimate tool for organizing your Spotify playlists with intelligent sorting and filtering.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold">Quick Links</h4>
+                    <div class="space-y-3">
+                        <a href="#features"
+                            class="block text-gray-400 hover:text-spotify-400 transition-colors duration-200">
+                            <i class="fas fa-star mr-2"></i>Features
+                        </a>
+                        <a href="#about"
+                            class="block text-gray-400 hover:text-spotify-400 transition-colors duration-200">
+                            <i class="fas fa-question-circle mr-2"></i>FAQ
+                        </a>
+                        <a href="https://github.com/plamere/SortYourMusic" target="_blank"
+                            class="block text-gray-400 hover:text-spotify-400 transition-colors duration-200">
+                            <i class="fab fa-github mr-2"></i>Source Code
+                        </a>
+                        <a href="http://developer.spotify.com" target="_blank"
+                            class="block text-gray-400 hover:text-spotify-400 transition-colors duration-200">
+                            <i class="fab fa-spotify mr-2"></i>Spotify API
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Powered By -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-bold">Powered By</h4>
+                    <div class="space-y-3">
+                        <a href="http://spotify.com" target="_blank"
+                            class="flex items-center text-gray-400 hover:text-spotify-400 transition-colors duration-200 group">
+                            <div
+                                class="w-8 h-8 bg-spotify-500 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-200">
+                                <i class="fab fa-spotify text-white"></i>
+                            </div>
+                            <span class="font-medium">Spotify Web API</span>
+                        </a>
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fab fa-js-square text-white"></i>
+                            </div>
+                            <span class="font-medium">Modern JavaScript</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-wind text-white"></i>
+                            </div>
+                            <span class="font-medium">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <div class="text-gray-400 text-center md:text-left">
+                        <p>
+                            Created by
+                            <a href="http://twitter.com/plamere" target="_blank"
+                                class="text-spotify-400 hover:text-spotify-300 font-semibold transition-colors duration-200">
+                                <i class="fab fa-twitter mr-1"></i>@plamere
+                            </a>
+                            with contributions by
+                            <a href="http://twitter.com/sonneveld" target="_blank"
+                                class="text-spotify-400 hover:text-spotify-300 font-semibold transition-colors duration-200">
+                                <i class="fab fa-twitter mr-1"></i>@sonneveld
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="text-gray-400 text-sm">
+                            © 2024 Sort Your Music
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-gray-400 text-sm">Secure & Private</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Updated jQuery to 3.7.1 for security and modern features -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- jQuery Migrate plugin to help with compatibility during transition -->
+    <script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"
+        integrity="sha256-UnTxHm+zKuDPLfufgEMnKGXDl6fEIjtM+n1Q6lL9O3g=" crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
 
     <!-- Deprecated: Replacement is the datetime plug-in (http://datatables.net/blog/2014-12-18) -->
-    <script type="text/javascript" charset="utf-8"
-        src="//cdn.datatables.net/plug-ins/1.10.7/sorting/time.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/plug-ins/1.10.7/sorting/time.js"></script>
+    <!-- No Bootstrap JS needed - using Tailwind CSS -->
     <script src="lib/underscore-min.js"></script>
-    <script type="text/javascript" charset="utf-8"
-        src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
     <script src="config.js?v2"></script>
 
-<script>
-"use strict";
-var accessToken = null;
-var curUserID = null;
-var curPlaylist = null;
-var albumDates = {};
-var audio = $("<audio>");
-var songTable;
-var cols = [
-    'order', 'title', 'artist', 'Date', 'BPM', 'energy',
-    'danceability', 'loudness', 'valence', 'duration',
-    'acousticness', 'popularity', 'artist separation', 'rnd'
-];
+    <script>
+        "use strict";
+        var accessToken = null;
+        var curUserID = null;
+        var curPlaylist = null;
+        var albumDates = {};
+        var audio = $("<audio>");
+        var songTable;
+        var cols = [
+            'order', 'title', 'artist', 'Date', 'BPM', 'energy',
+            'danceability', 'loudness', 'valence', 'duration',
+            'acousticness', 'popularity', 'artist separation', 'rnd'
+        ];
 
-// disable save while loading and saving, no matter what the saved state
-var forceDisableSave = false;
+        // disable save while loading and saving, no matter what the saved state
+        var forceDisableSave = false;
 
-// state of the saved playlist, so save button is only shown when different
-var savedState = {};
+        // state of the saved playlist, so save button is only shown when different
+        var savedState = {};
 
-function error(msg) {
-    info(msg);
-    if (msg != "") {
-        alert(msg);
-    }
-}
+        function error(msg) {
+            info(msg);
+            if (msg != "") {
+                alert(msg);
+            }
+        }
 
-function getCurSortName() {
-    let currentState = getPlaylistState();
-    let col = currentState.order[0];
-    if (directionMatters(col)) {
-        let prefix = (currentState.order[1] == 'asc') ? 'increasing ' : 'decreasing ';
-        return prefix + cols[col];
-    } else {
-        return cols[col];
-    }
-}
-
-function directionMatters(col) {
-    let cname = cols[col];
-    if (cname === "rnd" || cname === "artist separation") {
-        return false;
-    }
-    return true;
-}
-
-function info(msg) {
-    $("#info").text(msg);
-}
-
-function authorizeUser() {
-    var scopes = 'playlist-read-private playlist-modify-private playlist-modify-public';
-
-    var url = 'https://accounts.spotify.com/authorize?client_id=' + SPOTIFY_CLIENT_ID +
-        '&response_type=token' +
-        '&scope=' + encodeURIComponent(scopes) +
-        '&redirect_uri=' + encodeURIComponent(SPOTIFY_REDIRECT_URI);
-    document.location = url;
-}
-
-function parseArgs() {
-    var hash = location.hash.replace(/#/g, '');
-    var all = hash.split('&');
-    var args = {};
-    _.each(all, function(keyvalue) {
-        var kv = keyvalue.split('=');
-        var key = kv[0];
-        var val = kv[1];
-        args[key] = val;
-    });
-    return args;
-}
-
-function callSpotify(type, url, json, callback) {
-    $.ajax(url, {
-        type: type,
-        data: JSON.stringify(json),
-        dataType: 'json',
-        headers: {
-            'Authorization': 'Bearer ' + accessToken,
-            'Content-Type': 'application/json'
-        },
-        success: function(r) {
-            callback(true, r);
-        },
-        error: function(r) {
-            // 2XX status codes are good, but some have no
-            // response data which triggers the error handler
-            // convert it to goodness.
-            if (r.status >= 200 && r.status < 300) {
-                callback(true, r);
+        function getCurSortName() {
+            let currentState = getPlaylistState();
+            let col = currentState.order[0];
+            if (directionMatters(col)) {
+                let prefix = (currentState.order[1] == 'asc') ? 'increasing ' : 'decreasing ';
+                return prefix + cols[col];
             } else {
-                callback(false, r);
+                return cols[col];
             }
         }
-    });
-}
 
-function callSpotifyQ(type, url, json) {
-    return Q.Promise(function(resolve, reject, notify) {
-        $.ajax(url, {
-            type: type,
-            data: JSON.stringify(json),
-            dataType: 'json',
-            headers: {
-                'Authorization': 'Bearer ' + accessToken,
-                'Content-Type': 'application/json'
-            },
-            beforeSend : function () {
-                console.log(type + ": " + this.url);
-            },
-            success: function(data) {
-                resolve(data);
-            },
-            error: function(jqXHR, textStatus) {
-                // 2XX status codes are good, but some have no
-                // response data which triggers the error handler
-                // convert it to goodness.
-                if (jqXHR.status >= 200 && jqXHR.status < 300) {
-                    resolve(undefined);
-                } else {
-                    reject(textStatus);
-                }
+        function directionMatters(col) {
+            let cname = cols[col];
+            if (cname === "rnd" || cname === "artist separation") {
+                return false;
             }
-        });  
-    });
-}
-
-function getSpotify(url, data, callback) {
-    $.ajax(url, {
-        dataType: 'json',
-        data: data,
-        headers: {
-            'Authorization': 'Bearer ' + accessToken
-        },
-        success: function(r) {
-            callback(r);
-        },
-        error: function(r) {
-            callback(null);
+            return true;
         }
-    });
-}
 
-function getSpotifyQ(url, data) {
-    return Q.Promise(function(resolve, reject, notify) {
-        $.ajax(url, {
-            dataType: 'json',
-            data: data,
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            },
-            beforeSend : function () {
-                // console.log("GET: " + this.url);
-            },
-            success: function(data) {
-                resolve(data);
-            },
-            error: function(jqXHR, textStatus) {
-                if (jqXHR.status >= 200 && jqXHR.status < 300) {
-                    resolve(undefined);
-                } else {
-                    reject(textStatus);
-                }
+        function info(msg) {
+            $("#info").text(msg);
+        }
+
+        // ===== NEW SPOTIFY PKCE AUTHORIZATION SYSTEM =====
+
+        // Generate cryptographically secure random string for PKCE
+        function generateRandomString(length) {
+            const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const values = crypto.getRandomValues(new Uint8Array(length));
+            return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+        }
+
+        // SHA256 hash function
+        async function sha256(plain) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(plain);
+            return window.crypto.subtle.digest('SHA-256', data);
+        }
+
+        // Base64 encode for PKCE
+        function base64encode(input) {
+            return btoa(String.fromCharCode(...new Uint8Array(input)))
+                .replace(/=/g, '')
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_');
+        }
+
+        // PKCE Authorization with modern flow
+        async function authorizeUser() {
+            var scopes = 'playlist-read-private playlist-modify-private playlist-modify-public';
+
+            // Generate PKCE code verifier and challenge
+            const codeVerifier = generateRandomString(64);
+            const hashed = await sha256(codeVerifier);
+            const codeChallenge = base64encode(hashed);
+
+            // Store code verifier for token exchange
+            window.localStorage.setItem('code_verifier', codeVerifier);
+
+            // Build authorization URL with PKCE parameters
+            const authUrl = new URL("https://accounts.spotify.com/authorize");
+            const params = {
+                response_type: 'code',
+                client_id: SPOTIFY_CLIENT_ID,
+                scope: scopes,
+                code_challenge_method: 'S256',
+                code_challenge: codeChallenge,
+                redirect_uri: SPOTIFY_REDIRECT_URI,
+                state: generateRandomString(16) // CSRF protection
+            };
+
+            authUrl.search = new URLSearchParams(params).toString();
+            window.location.href = authUrl.toString();
+        }
+
+        // Exchange authorization code for access token
+        async function exchangeCodeForToken(code) {
+            const codeVerifier = localStorage.getItem('code_verifier');
+
+            if (!codeVerifier) {
+                throw new Error('Code verifier not found');
             }
-        });
-    });
-}
 
-function showPlaylists() {
-    $(".worker").hide();
-    $("#playlists").show();
-}
+            const url = "https://accounts.spotify.com/api/token";
+            const payload = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    client_id: SPOTIFY_CLIENT_ID,
+                    grant_type: 'authorization_code',
+                    code: code,
+                    redirect_uri: SPOTIFY_REDIRECT_URI,
+                    code_verifier: codeVerifier,
+                }),
+            };
 
-function fetchSinglePlaylist(playlist) {
-    $(".worker").hide();
-    $("#single-playlist").show();
-    $("#single-playlist-contents").hide();
-    $(".spinner2").show();
-    $("#song-table tbody").empty();
-    window.scrollTo(0,0);
-    disableSaveButton();
-    songTable.clear();
-    resetState();
+            const response = await fetch(url, payload);
 
-    curPlaylist = playlist;
-    curPlaylist.tracks.items = [];
-
-    $("#playlist-title").text(playlist.name);
-    $("#playlist-title").attr('href', playlist.uri);
-
-    info("");
-
-    fetchPlaylistTracks(playlist)
-    .then(function() {
-        saveState();
-        enableSaveButtonWhenNeeded();
-    })
-    .catch(function(msg) {
-        console.log('msg', msg);
-        error("Error while loading playlist: " + msg);
-    });
-}
-
-function smartOrder(items) {
-    // a smart ordering of the tracks
-    // smart ordering will try to equally distribute artists
-    let length = items.length;
-    let artist_counts = new Proxy({}, { get: (target, name) => name in target ? target[name] : 0 })
-    _.each(items, function(item, i) {
-        if (item.track) {
-            var track = item.track;
-            var artist = track.artists[0].name;
-            artist_counts[artist]++;
-        }
-    });
-
-    let artist_counts_so_far = new Proxy({}, { get: (target, name) => name in target ? target[name] : 0 })
-    let out = [];
-    let all_items = items.slice();
-
-    while (all_items.length > 0) {
-        let best_delta = 1000;
-        let best_item = all_items[0];
-        _.each(all_items, function(item, i) {
-            if (item.track) {
-                var track = item.track;
-                let artist = track.artists[0].name;
-                let desired_percentage = artist_counts[artist] / length;
-                let next_percentage = (artist_counts_so_far[artist] + 1) / (out.length + 1);
-                let delta_percentage = Math.abs(next_percentage - desired_percentage);
-                if (delta_percentage < best_delta) {
-                    best_delta = delta_percentage;
-                    best_item = item;
-                }
-            } else {
-                console.log("nope", item);
+            if (!response.ok) {
+                throw new Error(`Token exchange failed: ${response.status}`);
             }
-        });
-        all_items = all_items.filter(item => item != best_item);
-        best_item.track.smart = out.length;
-        out.push(best_item);
-        artist_counts_so_far[best_item.track.artists[0].name] += 1;
-    }
-}
 
-function findDuplicates(playlist) {
-    var ids = {};
-    var dups = [];
-    _.each(playlist.tracks.items, function(item, i) {
-        if (item.track && item.track.id) {
-            var track = item.track.id;
-            if (id in ids) {
-                dups.push(id);
+            const data = await response.json();
+
+            // Store tokens
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
+            localStorage.setItem('token_expires_at', Date.now() + (data.expires_in * 1000));
+
+            // Clean up
+            localStorage.removeItem('code_verifier');
+
+            return data.access_token;
+        }
+
+        // Parse URL parameters for PKCE flow (uses query params instead of hash)
+        function parseArgs() {
+            // Check if we have URL query parameters (PKCE flow)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('code')) {
+                return {
+                    code: urlParams.get('code'),
+                    state: urlParams.get('state'),
+                    error: urlParams.get('error')
+                };
             }
-            ids[id] = 1;
+
+            // Fallback to old hash parsing for backward compatibility
+            var hash = location.hash.replace(/#/g, '');
+            var all = hash.split('&');
+            var args = {};
+            _.each(all, function (keyvalue) {
+                var kv = keyvalue.split('=');
+                var key = kv[0];
+                var val = kv[1];
+                args[key] = val;
+            });
+            return args;
         }
-    });
-    return dups;
-}
 
-function formatDuration(dur) {
-    var mins = Math.floor(dur / 60)
-    var secs = Math.floor(dur - mins * 60);
-    var ssecs = secs.toString();
-    if (secs < 10) {
-        ssecs = '0' + ssecs;
-    }
-    return mins + ":" + ssecs;
-}
-
-function fetchAudioFeatures(ids) {
-    var cids = ids.join(',');
-    var url = "https://api.spotify.com/v1/audio-features";
-    return getSpotifyQ(url, { ids: cids});
-}
-
-function fetchAlbums(ids) {
-    var cids = ids.join(',');
-    var url = "https://api.spotify.com/v1/albums";
-    return getSpotifyQ(url, { ids: cids});
-}
-
-function fetchAllAlbums(ids) {
-    var maxAlbumsPerCall = 20;
-    var qs = [];
-    for (var i = 0; i < ids.length; i += maxAlbumsPerCall) {
-        var aids = ids.slice(i, i + maxAlbumsPerCall);
-        qs.push(fetchAlbums(aids));
-    }
-    return Q.all(qs);
-}
-
-function clearTable() {
-    songTable.clear();
-}
-
-function updateTable(items) {
-    $("#single-playlist-contents").show();
-    _.each(items, function(item, i) {
-        if (item.track) {
-            var track = item.track;
-            track.rnd = Math.random() * 10000;
-            addTrack(songTable, track);
-        }
-    });
-    songTable.draw();
-    $(".spinner2").hide();
-}
-
-function addTrack(table,track) {
-    if (track && track.enInfo && 'tempo' in track.enInfo) {
-        var relDate = '';
-        if (track.album.id in albumDates) {
-            relDate = albumDates[track.album.id];
-        }
-        table.row.add([
-                track.which + 1, 
-                track.name, 
-                track.artists[0].name,
-                relDate,
-                Math.round(track.enInfo.tempo),
-                Math.round(track.enInfo.energy * 100),
-                Math.round(track.enInfo.danceability * 100),
-                Math.round(track.enInfo.loudness),
-                Math.round(track.enInfo.valence * 100),
-                formatDuration(Math.round(track.enInfo.duration_ms / 1000.0)),
-                Math.round(track.enInfo.acousticness * 100),
-                //Math.round(track.enInfo.song_hotttnesss * 100),
-                Math.round(track.popularity),
-                Math.round(track.smart),
-                Math.round(track.rnd),
-                track
-        ]);
-    } else {
-        table.row.add([
-                track.which + 1, 
-                track.name, 
-                track.artists[0].name,
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                track
-        ]);
-    }
-}
-
-function fetchPlaylistTracks(playlist) {
-    let all_items = [];
-
-    function fetchLoop(url) {
-        var tracks;
-
-        return getSpotifyQ(url)
-        .then(function(data) {
-            var ids = [];
-            var aids = [];
-
-            tracks = data.tracks ? data.tracks : data;
-            _.each(tracks.items, function(item, i) {
-                all_items.push(item);
-                if (item.track) {
-                    item.track.which = curPlaylist.tracks.items.length;
-                    curPlaylist.tracks.items.push(item);
-                    if (!item.is_local) {
-                        if (item.track && item.track.id) {
-                            ids.push(item.track.id);
-                        }
-                        if (!(_.contains(aids, item.track.album.id))) {
-                            if (!(item.track.album.id in albumDates)) {
-                                aids.push(item.track.album.id);
-                            }
-                        }
+        function callSpotify(type, url, json, callback) {
+            $.ajax(url, {
+                type: type,
+                data: JSON.stringify(json),
+                dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                },
+                success: function (r) {
+                    callback(true, r);
+                },
+                error: function (r) {
+                    // 2XX status codes are good, but some have no
+                    // response data which triggers the error handler
+                    // convert it to goodness.
+                    if (r.status >= 200 && r.status < 300) {
+                        callback(true, r);
+                    } else {
+                        callback(false, r);
                     }
-                } else {
-                    console.log('no track at', i);
                 }
             });
-            return Q.all([fetchAllAlbums(aids), fetchAudioFeatures(ids)]);
-        })
-        .then(function(results) {
-            var allAlbums = results[0];
-            var trackFeatures = results[1];
+        }
 
-            _.each(allAlbums, function(albums) {
-                _.each(albums.albums, function(album) {
-                    if (album != null && 'id' in album) {
-                        albumDates[album.id] = album.release_date;
+        function callSpotifyQ(type, url, json) {
+            return Q.Promise(function (resolve, reject, notify) {
+                $.ajax(url, {
+                    type: type,
+                    data: JSON.stringify(json),
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    beforeSend: function () {
+                        console.log(type + ": " + this.url);
+                    },
+                    success: function (data) {
+                        resolve(data);
+                    },
+                    error: function (jqXHR, textStatus) {
+                        // 2XX status codes are good, but some have no
+                        // response data which triggers the error handler
+                        // convert it to goodness.
+                        if (jqXHR.status >= 200 && jqXHR.status < 300) {
+                            resolve(undefined);
+                        } else {
+                            reject(textStatus);
+                        }
                     }
                 });
             });
-            var fmap = {};
-            // beta apis are funny like this ...
-            if ('audio_attributes' in trackFeatures) {
-                trackFeatures = trackFeatures['audio_attributes']
-            }
+        }
 
-            if ('audio_features' in trackFeatures) {
-                trackFeatures = trackFeatures['audio_features']
-            }
-            _.each(trackFeatures, function(trackFeature, i) {
-                if (trackFeature && trackFeature.id) {
-                    fmap[trackFeature.id] = trackFeature;
+        function getSpotify(url, data, callback) {
+            $.ajax(url, {
+                dataType: 'json',
+                data: data,
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                },
+                success: function (r) {
+                    callback(r);
+                },
+                error: function (r) {
+                    callback(null);
+                }
+            });
+        }
+
+        function getSpotifyQ(url, data) {
+            return Q.Promise(function (resolve, reject, notify) {
+                $.ajax(url, {
+                    dataType: 'json',
+                    data: data,
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken
+                    },
+                    beforeSend: function () {
+                        // console.log("GET: " + this.url);
+                    },
+                    success: function (data) {
+                        resolve(data);
+                    },
+                    error: function (jqXHR, textStatus) {
+                        if (jqXHR.status >= 200 && jqXHR.status < 300) {
+                            resolve(undefined);
+                        } else {
+                            reject(textStatus);
+                        }
+                    }
+                });
+            });
+        }
+
+        function showPlaylists() {
+            $(".worker").hide();
+            $("#playlists").show();
+        }
+
+        function fetchSinglePlaylist(playlist) {
+            $(".worker").hide();
+            $("#single-playlist").show();
+            $("#single-playlist-contents").hide();
+            $(".spinner2").show();
+            $("#song-table tbody").empty();
+            window.scrollTo(0, 0);
+            disableSaveButton();
+            songTable.clear();
+            resetState();
+
+            curPlaylist = playlist;
+            curPlaylist.tracks.items = [];
+
+            $("#playlist-title").text(playlist.name);
+            $("#playlist-title").attr('href', playlist.uri);
+
+            info("");
+
+            fetchPlaylistTracks(playlist)
+                .then(function () {
+                    saveState();
+                    enableSaveButtonWhenNeeded();
+                })
+                .catch(function (msg) {
+                    console.log('msg', msg);
+                    error("Error while loading playlist: " + msg);
+                });
+        }
+
+        function smartOrder(items) {
+            // a smart ordering of the tracks
+            // smart ordering will try to equally distribute artists
+            let length = items.length;
+            let artist_counts = new Proxy({}, { get: (target, name) => name in target ? target[name] : 0 })
+            _.each(items, function (item, i) {
+                if (item.track) {
+                    var track = item.track;
+                    var artist = track.artists[0].name;
+                    artist_counts[artist]++;
                 }
             });
 
-            _.each(tracks.items, function(item, i) {
-                if (item.track && item.track.id) {
-                    var tid = item.track.id;
-                    if (tid in fmap) {
-                        item.track.enInfo = fmap[tid];
+            let artist_counts_so_far = new Proxy({}, { get: (target, name) => name in target ? target[name] : 0 })
+            let out = [];
+            let all_items = items.slice();
+
+            while (all_items.length > 0) {
+                let best_delta = 1000;
+                let best_item = all_items[0];
+                _.each(all_items, function (item, i) {
+                    if (item.track) {
+                        var track = item.track;
+                        let artist = track.artists[0].name;
+                        let desired_percentage = artist_counts[artist] / length;
+                        let next_percentage = (artist_counts_so_far[artist] + 1) / (out.length + 1);
+                        let delta_percentage = Math.abs(next_percentage - desired_percentage);
+                        if (delta_percentage < best_delta) {
+                            best_delta = delta_percentage;
+                            best_item = item;
+                        }
                     } else {
-                        item.track.enInfo = {};
+                        console.log("nope", item);
+                    }
+                });
+                all_items = all_items.filter(item => item != best_item);
+                best_item.track.smart = out.length;
+                out.push(best_item);
+                artist_counts_so_far[best_item.track.artists[0].name] += 1;
+            }
+        }
+
+        function findDuplicates(playlist) {
+            var ids = {};
+            var dups = [];
+            _.each(playlist.tracks.items, function (item, i) {
+                if (item.track && item.track.id) {
+                    var track = item.track.id;
+                    if (id in ids) {
+                        dups.push(id);
+                    }
+                    ids[id] = 1;
+                }
+            });
+            return dups;
+        }
+
+        function formatDuration(dur) {
+            var mins = Math.floor(dur / 60)
+            var secs = Math.floor(dur - mins * 60);
+            var ssecs = secs.toString();
+            if (secs < 10) {
+                ssecs = '0' + ssecs;
+            }
+            return mins + ":" + ssecs;
+        }
+
+        function fetchAudioFeatures(ids) {
+            var cids = ids.join(',');
+            var url = "https://api.spotify.com/v1/audio-features";
+            return getSpotifyQ(url, { ids: cids });
+        }
+
+        function fetchAlbums(ids) {
+            var cids = ids.join(',');
+            var url = "https://api.spotify.com/v1/albums";
+            return getSpotifyQ(url, { ids: cids });
+        }
+
+        function fetchAllAlbums(ids) {
+            var maxAlbumsPerCall = 20;
+            var qs = [];
+            for (var i = 0; i < ids.length; i += maxAlbumsPerCall) {
+                var aids = ids.slice(i, i + maxAlbumsPerCall);
+                qs.push(fetchAlbums(aids));
+            }
+            return Q.all(qs);
+        }
+
+        function clearTable() {
+            songTable.clear();
+        }
+
+        function updateTable(items) {
+            $("#single-playlist-contents").show();
+            _.each(items, function (item, i) {
+                if (item.track) {
+                    var track = item.track;
+                    track.rnd = Math.random() * 10000;
+                    addTrack(songTable, track);
+                }
+            });
+            songTable.draw();
+            $(".spinner2").hide();
+        }
+
+        function addTrack(table, track) {
+            if (track && track.enInfo && 'tempo' in track.enInfo) {
+                var relDate = '';
+                if (track.album.id in albumDates) {
+                    relDate = albumDates[track.album.id];
+                }
+                table.row.add([
+                    track.which + 1,
+                    track.name,
+                    track.artists[0].name,
+                    relDate,
+                    Math.round(track.enInfo.tempo),
+                    Math.round(track.enInfo.energy * 100),
+                    Math.round(track.enInfo.danceability * 100),
+                    Math.round(track.enInfo.loudness),
+                    Math.round(track.enInfo.valence * 100),
+                    formatDuration(Math.round(track.enInfo.duration_ms / 1000.0)),
+                    Math.round(track.enInfo.acousticness * 100),
+                    //Math.round(track.enInfo.song_hotttnesss * 100),
+                    Math.round(track.popularity),
+                    Math.round(track.smart),
+                    Math.round(track.rnd),
+                    track
+                ]);
+            } else {
+                table.row.add([
+                    track.which + 1,
+                    track.name,
+                    track.artists[0].name,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    track
+                ]);
+            }
+        }
+
+        function fetchPlaylistTracks(playlist) {
+            let all_items = [];
+
+            function fetchLoop(url) {
+                var tracks;
+
+                return getSpotifyQ(url)
+                    .then(function (data) {
+                        var ids = [];
+                        var aids = [];
+
+                        tracks = data.tracks ? data.tracks : data;
+                        _.each(tracks.items, function (item, i) {
+                            all_items.push(item);
+                            if (item.track) {
+                                item.track.which = curPlaylist.tracks.items.length;
+                                curPlaylist.tracks.items.push(item);
+                                if (!item.is_local) {
+                                    if (item.track && item.track.id) {
+                                        ids.push(item.track.id);
+                                    }
+                                    if (!(_.contains(aids, item.track.album.id))) {
+                                        if (!(item.track.album.id in albumDates)) {
+                                            aids.push(item.track.album.id);
+                                        }
+                                    }
+                                }
+                            } else {
+                                console.log('no track at', i);
+                            }
+                        });
+                        return Q.all([fetchAllAlbums(aids), fetchAudioFeatures(ids)]);
+                    })
+                    .then(function (results) {
+                        var allAlbums = results[0];
+                        var trackFeatures = results[1];
+
+                        _.each(allAlbums, function (albums) {
+                            _.each(albums.albums, function (album) {
+                                if (album != null && 'id' in album) {
+                                    albumDates[album.id] = album.release_date;
+                                }
+                            });
+                        });
+                        var fmap = {};
+                        // beta apis are funny like this ...
+                        if ('audio_attributes' in trackFeatures) {
+                            trackFeatures = trackFeatures['audio_attributes']
+                        }
+
+                        if ('audio_features' in trackFeatures) {
+                            trackFeatures = trackFeatures['audio_features']
+                        }
+                        _.each(trackFeatures, function (trackFeature, i) {
+                            if (trackFeature && trackFeature.id) {
+                                fmap[trackFeature.id] = trackFeature;
+                            }
+                        });
+
+                        _.each(tracks.items, function (item, i) {
+                            if (item.track && item.track.id) {
+                                var tid = item.track.id;
+                                if (tid in fmap) {
+                                    item.track.enInfo = fmap[tid];
+                                } else {
+                                    item.track.enInfo = {};
+                                }
+                            }
+                        });
+                        updateTable(tracks.items);
+
+                        if (tracks.next) {
+                            return fetchLoop(tracks.next);
+                        } else {
+                            console.log("tracks loaded");
+                            smartOrder(all_items);
+                            clearTable();
+                            updateTable(all_items);
+                        }
+                    })
+            }
+
+
+            // Spotify API defect? specifying limit will actually return up to 100 items anyway.
+            var startUrl = "https://api.spotify.com/v1/users/" + playlist.owner.id +
+                "/playlists/" + playlist.id + "/tracks?limit=50";
+            return fetchLoop(startUrl);
+        }
+
+        function fetchPlaylists(uid, callback) {
+            $("#playlist-list tbody").empty();
+            $(".prompt").hide();
+            $(".spinner").show();
+
+            info("Getting your playlists");
+            var url = 'https://api.spotify.com/v1/users/' + uid + '/playlists';
+            var data = {
+                limit: 50,
+                offset: 0
+            }
+            getSpotify(url, data, callback);
+        }
+
+        function fetchCurrentUserProfile(callback) {
+            var url = 'https://api.spotify.com/v1/me';
+            getSpotify(url, null, callback);
+        }
+
+        function goodPlaylist(playlist) {
+            return playlist.tracks.total > 0; // && playlist.owner.id == curUserID;
+        }
+
+        function formatOwner(owner) {
+            if (owner.id == curUserID) {
+                return "";
+            } else {
+                // opportunity to fetch owner details here
+                return owner.id;
+            }
+        }
+
+        function playlistLoaded(playlists) {
+            var pl = $("#playlist-list tbody");
+            $(".prompt").show();
+            $(".spinner").hide();
+            if (playlists) {
+                info("");
+                _.each(playlists.items, function (playlist) {
+                    if (goodPlaylist(playlist)) {
+                        var tr = $("<tr>").addClass('hover:bg-gray-50 cursor-pointer transition-colors duration-200');
+
+                        // Image cell with modern styling
+                        var tiny_image_url = get_tiny_image(playlist);
+                        var imageCell = $("<td>").addClass('px-6 py-4');
+                        if (tiny_image_url) {
+                            var imageContainer = $("<div>").addClass('w-16 h-16 rounded-xl overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-200');
+                            var image = $("<img>")
+                                .attr("src", tiny_image_url)
+                                .addClass('w-full h-full object-cover')
+                                .attr("alt", playlist.name + " cover");
+                            imageContainer.append(image);
+                            imageCell.append(imageContainer);
+                        } else {
+                            var placeholderContainer = $("<div>").addClass('w-16 h-16 rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center shadow-lg');
+                            var placeholderIcon = $("<i>").addClass('fas fa-music text-gray-500 text-xl');
+                            placeholderContainer.append(placeholderIcon);
+                            imageCell.append(placeholderContainer);
+                        }
+                        tr.append(imageCell);
+
+                        // Name cell with modern styling
+                        var tdName = $("<td>").addClass('px-6 py-4');
+                        var aName = $("<a>")
+                            .text(playlist.name)
+                            .addClass('text-lg font-semibold text-gray-900 hover:text-spotify-600 transition-colors duration-200 cursor-pointer')
+                            .on('click', function () {
+                                fetchSinglePlaylist(playlist);
+                            });
+                        tdName.append(aName);
+
+                        // Track count with badge styling
+                        var tdTrackCount = $("<td>").addClass('px-6 py-4');
+                        var trackBadge = $("<span>")
+                            .text(playlist.tracks.total)
+                            .addClass('inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-spotify-100 text-spotify-800');
+                        tdTrackCount.append(trackBadge);
+
+                        // Owner cell with modern styling
+                        var tdOwner = $("<td>").addClass('px-6 py-4 text-gray-600 font-medium');
+                        var ownerText = formatOwner(playlist.owner);
+                        if (ownerText) {
+                            tdOwner.text(ownerText);
+                        } else {
+                            var youBadge = $("<span>")
+                                .text('You')
+                                .addClass('inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800');
+                            tdOwner.append(youBadge);
+                        }
+
+                        tr.append(tdName);
+                        tr.append(tdTrackCount);
+                        tr.append(tdOwner);
+
+                        // Add click handler to entire row
+                        tr.on('click', function () {
+                            fetchSinglePlaylist(playlist);
+                        });
+
+                        pl.append(tr);
+                    }
+                });
+                if (playlists.next) {
+                    getSpotify(playlists.next, null, playlistLoaded);
+                }
+            } else {
+                error("Sorry, I couldn't find your playlists");
+            }
+        }
+
+        function get_tiny_image(playlist) {
+            if (playlist.images) {
+                var len = playlist.images.length;
+                if (len > 0) {
+                    return playlist.images[len - 1]['url'];
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+
+        function loadPlaylists(uid) {
+            $("#playlists").show();
+            fetchPlaylists(uid, playlistLoaded);
+        }
+
+        function inRange(val, min, max) {
+            return ((isNaN(min) && isNaN(max)) ||
+                (isNaN(min) && val <= max) ||
+                (min <= val && isNaN(max)) ||
+                (min <= val && val <= max));
+        }
+
+        function playlistFilter(settings, data, dataIndex) {
+            var minBpm = parseInt($('#min-bpm').val(), 10);
+            var maxBpm = parseInt($('#max-bpm').val(), 10);
+            var includeDouble = $('#include-double').is(':checked');
+            var bpm = parseFloat(data[4]) || 0;
+
+            return inRange(bpm, minBpm, maxBpm) ||
+                (includeDouble && inRange(bpm * 2, minBpm, maxBpm));
+        }
+
+        function playTrack(track) {
+            audio.attr('src', track.preview_url);
+            audio.get(0).play();
+        }
+
+        function stopTrack() {
+            audio.get(0).pause();
+        }
+
+
+        // ----------------------------------------------------------------------------
+        // Playlist Saving
+        // ----------------------------------------------------------------------------
+
+        function getSortedUrisFromTable(tracks, table) {
+            // Possibly a defect in DataTables: rows() and rows().indexes() returns array in incorrect order
+            // Instead, use rows().data() and calculate index from track column.
+            return _.chain(table.rows({ filter: 'applied' }).data())
+                // Web API only doesn't support local files for now.
+                .select(function (rowdata) { return rowdata[14].uri.startsWith("spotify:track:"); })
+                .map(function (rowdata) { return rowdata[14].uri; })
+                .value();
+        }
+
+        // (#save,#dropSave,#dropOverwrite).onclick
+        function savePlaylist(playlist, createNewPlaylist) {
+            var tids = getSortedUrisFromTable(playlist.tracks.items, songTable);
+
+            if (tids.length <= 0) {
+                error("Cannot save the playlist because there are no tracks left after filtering");
+                return;
+            }
+
+            disableSaveButton();
+            showSaveSpinner(true);
+
+            createOrReusePlaylist(playlist, createNewPlaylist)
+                .then(function (playlistToModify) {
+                    return saveTidsToPlaylist(playlistToModify, tids, true);
+                })
+                .then(function () {
+                    saveState();
+                })
+                .catch(function (msg) {
+                    error(msg);
+                })
+                .finally(function () {
+                    showSaveSpinner(false);
+                    enableSaveButtonWhenNeeded();
+                    error("");
+                })
+        }
+
+        function saveTidsToPlaylist(playlist, tids, replace) {
+            var sliceLength = 100;
+            var this_tids = tids.slice(0, sliceLength);
+            var remaining = tids.slice(sliceLength);
+            var url = "https://api.spotify.com/v1/playlists/" + playlist.id + '/tracks';
+            var type;
+            var json;
+
+            if (replace) {
+                type = 'PUT';
+                json = { 'uris': this_tids };
+            } else {
+                type = 'POST';
+                json = this_tids;
+            }
+
+            return callSpotifyQ(type, url, json)
+                .then(function () {
+                    if (remaining.length > 0) {
+                        return saveTidsToPlaylist(playlist, remaining, false);
+                    }
+                })
+                .catch(function () {
+                    console.log("reject");
+                    return Q.reject("Trouble saving tracks to the playlist");
+                });
+        }
+
+        function createPlaylist(owner, name, isPublic) {
+            var url = "https://api.spotify.com/v1/users/" + owner + "/playlists";
+            var json = { name: name, 'public': isPublic };
+            return callSpotifyQ('POST', url, json)
+                .catch(function () {
+                    return Q.reject("Cannot create the new playlist");
+                });
+        }
+
+        function createOrReusePlaylist(playlist, createNewPlaylist) {
+            if (createNewPlaylist) {
+                var sortName = getCurSortName();
+                return createPlaylist(curUserID, playlist.name + " ordered by " + sortName, playlist.public);
+            } else {
+                return Q(playlist);
+            }
+        }
+
+
+        // ----------------------------------------------------------------------------
+        // Saved playlist state tracking
+        // ----------------------------------------------------------------------------
+
+        function resetState() {
+            songTable.order([0, 'asc']);
+
+            $('#min-bpm').val("");
+            $('#max-bpm').val("");
+            $('#include-double').prop('checked', true);
+
+            saveState();
+        }
+
+        // we keep track of which column we last sorted on so we
+        // can enable or disable the save button as appropriate
+        function getPlaylistState() {
+            var firstOrder = [];
+            var selectedTableOrder = songTable.order();
+            if (selectedTableOrder.length >= 1) {
+                firstOrder = _.clone(selectedTableOrder[0]); // object is reused by datatable!
+            }
+
+            return {
+                minBpm: parseInt($('#min-bpm').val(), 10),
+                maxBpm: parseInt($('#max-bpm').val(), 10),
+                includeDouble: $('#include-double').is(':checked'),
+                order: firstOrder,
+            };
+        }
+
+        function saveState() {
+            savedState = getPlaylistState();
+        }
+
+        function isSavable() {
+            return !_.isEqual(savedState, getPlaylistState());
+        }
+
+        function setNeedsSave(state) {
+            if (state) {
+                $("#save,#saveDropdown").attr('disabled', false);
+                $("#save,#saveDropdown").removeClass('btn-warning');
+                $("#save,#saveDropdown").addClass('btn-primary');
+            } else {
+                $("#save,#saveDropdown").attr('disabled', true);
+                $("#save,#saveDropdown").addClass('btn-warning');
+                $("#save,#saveDropdown").removeClass('btn-primary');
+            }
+        }
+
+        function updateSaveButtonState() {
+            setNeedsSave(!forceDisableSave && isSavable());
+        }
+
+        function disableSaveButton() {
+            forceDisableSave = true;
+            updateSaveButtonState();
+        }
+
+        function enableSaveButtonWhenNeeded() {
+            forceDisableSave = false;
+            updateSaveButtonState();
+        }
+
+        function showSaveSpinner(showSpinner) {
+            if (showSpinner) {
+                $('#save').addClass('active');
+            } else {
+                $('#save').removeClass('active');
+            }
+        }
+
+        function initTable() {
+            var table = $("#song-table").DataTable({
+                paging: false,
+                searching: true,  // searching must be enabled for filtering to work
+                // scrollY:'300px',
+                info: false,
+                dom: "t", // only show table (exclude search bar)
+                columnDefs: [
+                    { type: "time-uni", targets: 9 },
+                ]
+            });
+
+            table.on('order.dt', function () {
+                updateSaveButtonState();
+            });
+
+            $("#song-table tbody").on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected bg-spotify-50 border-spotify-200');
+                    var row = songTable.row($(this));
+                    stopTrack();
+                } else {
+                    table.$('tr.selected').removeClass('selected bg-spotify-50 border-spotify-200');
+                    $(this).addClass('selected bg-spotify-50 border-spotify-200');
+                    var row = songTable.row($(this));
+                    var rowData = row.data();
+                    var track = rowData[rowData.length - 1];
+                    playTrack(track);
+                }
+            });
+
+            // Style table rows after DataTable is initialized
+            setTimeout(function () {
+                $("#song-table tbody tr").addClass('hover:bg-gray-50 cursor-pointer transition-all duration-200');
+                $("#song-table tbody td").addClass('px-4 py-3 text-sm text-gray-700 font-medium border-b border-gray-100');
+            }, 100);
+
+            return table;
+        }
+
+        $(document).ready(
+
+            function () {
+                songTable = initTable();
+                var args = parseArgs();
+
+
+                // Handle PKCE authorization code flow
+                if ('code' in args) {
+                    info("Exchanging authorization code for access token...");
+                    exchangeCodeForToken(args.code)
+                        .then(function (token) {
+                            accessToken = token;
+                            // Clear URL parameters to clean up the address bar
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                            $(".worker").hide();
+                            fetchCurrentUserProfile(function (user) {
+                                if (user) {
+                                    curUserID = user.id;
+                                    $("#who").text(user.id);
+                                    loadPlaylists(user.id);
+                                } else {
+                                    error("Trouble getting the user profile");
+                                }
+                            });
+                        })
+                        .catch(function (error) {
+                            console.error('Token exchange failed:', error);
+                            error("Failed to complete authorization. Please try again.");
+                            $("#go").show();
+                            $("#go").on('click', function () {
+                                authorizeUser();
+                            });
+                        });
+                } else if ('error' in args) {
+                    error("Sorry, I can't read your playlists from Spotify without authorization");
+                    $("#go").show();
+                    $("#go").on('click', function () {
+                        authorizeUser();
+                    });
+                } else if ('access_token' in args) {
+                    // Legacy implicit grant flow support (still works for existing bookmarks)
+                    accessToken = args['access_token'];
+                    $(".worker").hide();
+                    fetchCurrentUserProfile(function (user) {
+                        if (user) {
+                            curUserID = user.id;
+                            $("#who").text(user.id);
+                            loadPlaylists(user.id);
+                        } else {
+                            error("Trouble getting the user profile");
+                        }
+                    });
+                } else {
+                    // Check if we have a stored valid access token
+                    const storedToken = localStorage.getItem('access_token');
+                    const tokenExpiry = localStorage.getItem('token_expires_at');
+
+                    if (storedToken && tokenExpiry && Date.now() < parseInt(tokenExpiry)) {
+                        // Use stored token
+                        accessToken = storedToken;
+                        $(".worker").hide();
+                        fetchCurrentUserProfile(function (user) {
+                            if (user) {
+                                curUserID = user.id;
+                                $("#who").text(user.id);
+                                loadPlaylists(user.id);
+                            } else {
+                                error("Stored token is invalid. Please re-authorize.");
+                                $("#go").show();
+                                $("#go").on('click', function () {
+                                    authorizeUser();
+                                });
+                            }
+                        });
+                    } else {
+                        // No valid token, show login button
+                        $("#go").show();
+                        $("#go").on('click', function () {
+                            authorizeUser();
+                        });
                     }
                 }
-            });
-            updateTable(tracks.items);
 
-            if (tracks.next) {
-                return fetchLoop(tracks.next);
-            } else {
-                console.log("tracks loaded");
-                smartOrder(all_items);
-                clearTable();
-                updateTable(all_items);
+                $("#dropSave").on('click', function (e) {
+                    e.preventDefault();
+                    $('#save-dropdown').addClass('hidden');
+                    info("saving new playlist...")
+                    savePlaylist(curPlaylist, true);
+                });
+                $("#dropOverwrite").on('click', function (e) {
+                    e.preventDefault();
+                    $('#save-dropdown').addClass('hidden');
+                    info("overwriting playlist...")
+                    savePlaylist(curPlaylist, false);
+                });
+
+                $("#pick").on('click', function () {
+                    showPlaylists();
+                });
+
+                $.fn.dataTable.ext.search.push(playlistFilter);
+                $('#min-bpm,#max-bpm,#include-double').on('keyup change', function () {
+                    songTable.draw();
+                    updateSaveButtonState();
+                });
+
+                // Handle save dropdown properly
+                $('#saveDropdown').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('#save-dropdown').toggleClass('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                $(document).on('click', function () {
+                    $('#save-dropdown').addClass('hidden');
+                });
+
+                $('#save-dropdown').on('click', function (e) {
+                    e.stopPropagation();
+                });
+
+                // Handle main save button (defaults to save new)
+                $('#save').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Don't toggle dropdown on main save button
+                    info("saving ...");
+                    savePlaylist(curPlaylist, true);
+                });
+
+                // Override the showSaveSpinner function
+                window.showSaveSpinner = function (show) {
+                    if (show) {
+                        $('#save .spinner-icon').removeClass('hidden');
+                        $('#save .save-icon').addClass('hidden');
+                        $('#save').addClass('active');
+                    } else {
+                        $('#save .spinner-icon').addClass('hidden');
+                        $('#save .save-icon').removeClass('hidden');
+                        $('#save').removeClass('active');
+                    }
+                };
             }
-        })
-    }
+        );
 
-
-    // Spotify API defect? specifying limit will actually return up to 100 items anyway.
-    var startUrl = "https://api.spotify.com/v1/users/" + playlist.owner.id +
-        "/playlists/" + playlist.id + "/tracks?limit=50";
-    return fetchLoop(startUrl);
-}
-
-function fetchPlaylists(uid, callback) {
-    $("#playlist-list tbody").empty();
-    $(".prompt").hide();
-    $(".spinner").show();
-
-    info("Getting your playlists");
-    var url = 'https://api.spotify.com/v1/users/' + uid + '/playlists';
-    var data = {
-        limit:50,
-        offset:0
-    }
-    getSpotify(url, data, callback);
-}
-
-function fetchCurrentUserProfile(callback) {
-    var url = 'https://api.spotify.com/v1/me';
-    getSpotify(url, null, callback);
-}
-
-function goodPlaylist(playlist) {
-    return playlist.tracks.total > 0; // && playlist.owner.id == curUserID;
-}
-
-function formatOwner(owner) {
-    if (owner.id == curUserID) {
-        return "";
-    } else {
-        // opportunity to fetch owner details here
-        return owner.id;
-    }
-}
-
-function playlistLoaded(playlists) {
-    var pl = $("#playlist-list tbody");
-    $(".prompt").show();
-    $(".spinner").hide();
-    if (playlists) {
-        info("");
-        _.each(playlists.items, function(playlist) {
-            if (goodPlaylist(playlist)) {
-                var tr = $("<tr>");
-                var tiny_image_url = get_tiny_image(playlist);
-                var imageCell = $("<td>");
-                if (tiny_image_url) {
-                    var image = $("<img>");
-                    image.attr("src", tiny_image_url);
-                    image.attr("width", "60px");
-                    imageCell.append(image)
-                }
-                tr.append(imageCell);
-
-                var tdName = $("<td>")
-
-                var aName = $("<a>")
-                    .text(playlist.name)
-                    .addClass('hoverable')
-                    .on('click', function() {
-                        fetchSinglePlaylist(playlist);
-                    });
-                tdName.append(aName);
-
-                var tdTrackCount = $("<td>").text(playlist.tracks.total);
-
-                var tdOwner = $("<td>").text(formatOwner(playlist.owner));
-
-                tr.append(tdName);
-                tr.append(tdTrackCount);
-                tr.append(tdOwner);
-
-                pl.append(tr);
-            }
-        });
-        if (playlists.next) {
-            getSpotify(playlists.next, null, playlistLoaded);
-        }
-    } else {
-        error("Sorry, I couldn't find your playlists");
-    }
-}
-
-function get_tiny_image(playlist) {
-    if (playlist.images) {
-        var len = playlist.images.length;
-        if (len > 0) {
-            return playlist.images[len - 1]['url'];
-        } else {
-            return null;
-        }
-    } else {
-        return null;
-    }
-}
-
-function loadPlaylists(uid) {
-    $("#playlists").show();
-    fetchPlaylists(uid, playlistLoaded);
-}
-
-function inRange(val, min, max) {
-    return ( ( isNaN(min) && isNaN(max) ) ||
-             ( isNaN(min) && val <= max ) ||
-             ( min <= val && isNaN(max) ) ||
-             ( min <= val && val <= max ) );
-}
-
-function playlistFilter( settings, data, dataIndex ) {
-    var minBpm = parseInt( $('#min-bpm').val(), 10 );
-    var maxBpm = parseInt( $('#max-bpm').val(), 10 );
-    var includeDouble = $('#include-double').is(':checked');
-    var bpm = parseFloat( data[4] ) || 0;
-
-    return inRange(bpm, minBpm, maxBpm) || 
-        (includeDouble && inRange(bpm*2, minBpm, maxBpm));
-}
-
-function playTrack(track) {
-    audio.attr('src', track.preview_url);
-    audio.get(0).play();
-}
-
-function stopTrack() {
-    audio.get(0).pause();
-}
-
-
-// ----------------------------------------------------------------------------
-// Playlist Saving
-// ----------------------------------------------------------------------------
-
-function getSortedUrisFromTable(tracks, table) {
-    // Possibly a defect in DataTables: rows() and rows().indexes() returns array in incorrect order
-    // Instead, use rows().data() and calculate index from track column.
-    return _.chain(table.rows({filter:'applied'}).data())
-        // Web API only doesn't support local files for now.
-        .select(function(rowdata) { return rowdata[14].uri.startsWith("spotify:track:"); } )
-        .map (function(rowdata) {return rowdata[14].uri;})
-        .value();
-}
-
-// (#save,#dropSave,#dropOverwrite).onclick
-function savePlaylist(playlist, createNewPlaylist) {
-    var tids = getSortedUrisFromTable(playlist.tracks.items, songTable);
-
-    if (tids.length <= 0) {
-        error("Cannot save the playlist because there are no tracks left after filtering");
-        return;
-    }
-
-    disableSaveButton();
-    showSaveSpinner(true);
-
-    createOrReusePlaylist(playlist, createNewPlaylist)
-    .then(function(playlistToModify) {
-        return saveTidsToPlaylist(playlistToModify, tids, true);
-    })
-    .then(function() {
-        saveState();
-    })
-    .catch(function(msg) {
-        error(msg);
-    })
-    .finally(function() {
-        showSaveSpinner(false);
-        enableSaveButtonWhenNeeded();
-        error("");
-    })
-}
-
-function saveTidsToPlaylist(playlist, tids, replace) {
-    var sliceLength = 100;
-    var this_tids = tids.slice(0, sliceLength);
-    var remaining = tids.slice(sliceLength);
-    var url = "https://api.spotify.com/v1/playlists/" + playlist.id + '/tracks';
-    var type;
-    var json;
-
-    if (replace) {
-        type = 'PUT';
-        json = { 'uris': this_tids };
-    } else {
-        type = 'POST';
-        json = this_tids;
-    }
-
-    return callSpotifyQ(type, url, json)
-    .then(function() {
-        if (remaining.length > 0) {
-            return saveTidsToPlaylist(playlist, remaining, false);
-        } 
-    })
-    .catch(function() {
-        console.log("reject");
-        return Q.reject("Trouble saving tracks to the playlist");
-    });
-}
-
-function createPlaylist(owner, name, isPublic) {
-    var url = "https://api.spotify.com/v1/users/" + owner + "/playlists";
-    var json = { name: name, 'public': isPublic };
-    return callSpotifyQ('POST', url, json)
-    .catch(function() {
-        return Q.reject("Cannot create the new playlist");
-    });
-}
-
-function createOrReusePlaylist(playlist, createNewPlaylist) {
-    if (createNewPlaylist) {
-        var sortName = getCurSortName();
-        return createPlaylist(curUserID, playlist.name + " ordered by " + sortName, playlist.public);
-    } else {
-        return Q(playlist);
-    }
-}
-
-
-// ----------------------------------------------------------------------------
-// Saved playlist state tracking
-// ----------------------------------------------------------------------------
-
-function resetState() {
-    songTable.order([0, 'asc']);
-
-    $('#min-bpm').val("");
-    $('#max-bpm').val("");
-    $('#include-double').prop('checked', true);
-
-    saveState();
-}
-
-// we keep track of which column we last sorted on so we
-// can enable or disable the save button as appropriate
-function getPlaylistState() {
-    var firstOrder = [];
-    var selectedTableOrder = songTable.order();
-    if (selectedTableOrder.length >= 1) {
-        firstOrder = _.clone(selectedTableOrder[0]); // object is reused by datatable!
-    }
-
-    return { 
-        minBpm: parseInt( $('#min-bpm').val(), 10 ),
-        maxBpm: parseInt( $('#max-bpm').val(), 10 ),
-        includeDouble: $('#include-double').is(':checked'),
-        order: firstOrder,
-    };
-}
-
-function saveState() {
-    savedState = getPlaylistState();
-}
-
-function isSavable() {
-    return !_.isEqual(savedState, getPlaylistState());
-}
-
-function setNeedsSave(state) {
-    if (state) {
-        $("#save,#saveDropdown").attr('disabled', false);
-        $("#save,#saveDropdown").removeClass('btn-warning');
-        $("#save,#saveDropdown").addClass('btn-primary');
-    } else {
-        $("#save,#saveDropdown").attr('disabled', true);
-        $("#save,#saveDropdown").addClass('btn-warning');
-        $("#save,#saveDropdown").removeClass('btn-primary');
-    }
-}
-
-function updateSaveButtonState() {
-    setNeedsSave(!forceDisableSave && isSavable());
-}
-
-function disableSaveButton() {
-    forceDisableSave = true;
-    updateSaveButtonState();
-}
-
-function enableSaveButtonWhenNeeded() {
-    forceDisableSave = false;
-    updateSaveButtonState();
-}
-
-function showSaveSpinner(showSpinner) {
-    if (showSpinner) {
-        $('#save').addClass('active');
-    } else {
-        $('#save').removeClass('active');
-    }
-}
-
-function initTable() {
-    var table = $("#song-table").DataTable( {
-            paging: false,
-            searching: true,  // searching must be enabled for filtering to work
-            // scrollY:'300px',
-            info:false,
-            dom:"t", // only show table (exclude search bar)
-            columnDefs: [
-                { type : "time-uni", targets:9},
-            ]
-     });
-
-    table.on('order.dt', function() {
-        updateSaveButtonState();
-    });
-
-    $("#song-table tbody").on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            var row = songTable.row( $(this) );
-            stopTrack();
-        } else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-            var row = songTable.row( $(this) );
-            var rowData = row.data();
-            var track = rowData[rowData.length - 1];
-            playTrack(track);
-        }
-    } );
-    return table;
-}
-
-$(document).ready(
-
-    function() {
-        songTable = initTable();
-        var args = parseArgs();
-
-
-        if ('error' in args) {
-            error("Sorry, I can't read your playlists from Spotify without authorization");
-            $("#go").show();
-            $("#go").on('click', function() {
-                authorizeUser();
-            });
-        } else if ('access_token' in args) {
-            accessToken = args['access_token'];
-            $(".worker").hide();
-            fetchCurrentUserProfile(function(user) {
-                if (user) {
-                    curUserID = user.id;
-                    $("#who").text(user.id);
-                    loadPlaylists(user.id);
-                } else {
-                    error("Trouble getting the user profile");
-                }
-            });
-        } else {
-            $("#go").show();
-            $("#go").on('click', function() {
-                authorizeUser();
-            });
-        }
-
-        $("#save,#dropSave").on('click', function() {
-            info("saving ...")
-            savePlaylist(curPlaylist, true);
-        });
-        $("#dropOverwrite").on('click', function() {
-            info("overwriting ...")
-            savePlaylist(curPlaylist, false);
-        });
-
-        $("#pick").on('click', function() {
-            showPlaylists();
-        });
-
-        $.fn.dataTable.ext.search.push(playlistFilter);
-        $('#min-bpm,#max-bpm,#include-double').on('keyup change', function() {
-            songTable.draw();
-            updateSaveButtonState();
-        });
-    }
-);
-
-</script>
+    </script>
 
 </body>
+
 </html>

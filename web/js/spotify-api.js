@@ -1,5 +1,5 @@
 /**
- * Spotify API Utilities Module
+ * Spotify API Utilities Module Roll back
  */
 
 class SpotifyAPI {

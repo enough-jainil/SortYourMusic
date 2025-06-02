@@ -22,12 +22,19 @@ function toggleMobileMenu() {
 
 // Initialize DataTable
 function initTable() {
-  var table = $("#song-table").DataTable({
+  var table = new DataTable("#song-table", {
     paging: false,
     searching: true,
     info: false,
-    dom: "t",
-    columnDefs: [{ type: "time-uni", targets: 9 }],
+    layout: {
+      topStart: null,
+      topEnd: null,
+      bottomStart: null,
+      bottomEnd: null,
+    },
+    columnDefs: [
+      { type: "date", targets: 9 }, // Updated for DataTables 2.x built-in date sorting
+    ],
   });
 
   table.on("order.dt", function () {
@@ -462,8 +469,8 @@ $(document).ready(function () {
     app.playlistManager.showPlaylists();
   });
 
-  // Setup filtering
-  $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+  // Setup filtering (DataTables 2.x compatible)
+  DataTable.ext.search.push(function (settings, data, dataIndex) {
     return app.playlistManager.playlistFilter(settings, data, dataIndex);
   });
 
@@ -493,4 +500,18 @@ $(document).ready(function () {
     app.playlistManager.info("saving ...");
     savePlaylist(app.playlistManager.curPlaylist, true);
   });
+});
+
+// New in DataTables 2.x - Custom duration type for mm:ss format
+DataTable.type("duration", {
+  detect: function (data) {
+    return data && data.match(/^\d+:\d{2}$/) ? "duration" : null;
+  },
+  order: {
+    pre: function (data) {
+      if (!data || data === "") return 0;
+      var parts = data.split(":");
+      return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    },
+  },
 });
